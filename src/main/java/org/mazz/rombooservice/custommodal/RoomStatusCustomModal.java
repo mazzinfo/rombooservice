@@ -1,8 +1,5 @@
 package org.mazz.rombooservice.custommodal;
 
-import java.sql.Date;
-
-import org.springframework.format.annotation.DateTimeFormat;
 
 public class RoomStatusCustomModal {
 	private String typeName;

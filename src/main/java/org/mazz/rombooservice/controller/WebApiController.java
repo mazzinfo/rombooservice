@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.mazz.rombooservice.custommodal.RoomStatusCustomModal;
+import org.mazz.rombooservice.custommodal.RoomTotalStatusCustomModal;
 import org.mazz.rombooservice.service.RoomService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -32,6 +33,13 @@ public class WebApiController {
 	@GetMapping("/roomCurrentStatus")
 	public List<RoomStatusCustomModal> getCurrentRoomStatus() {
 		return roomService.getCurrentRoomStatus();
+	}
+	
+	
+	
+	@GetMapping("/totalRoomStatus")
+	public RoomTotalStatusCustomModal totalRoomStatus() {
+		return roomService.getTotalRoomStatus();
 	}
 	
 }
