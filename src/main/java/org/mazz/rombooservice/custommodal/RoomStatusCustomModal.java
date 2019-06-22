@@ -104,5 +104,4 @@ public class RoomStatusCustomModal {
 		this.guestName = guestName;
 	}
 	
-
 }
