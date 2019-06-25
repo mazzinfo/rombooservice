@@ -5,6 +5,8 @@ import java.util.List;
 
 import org.mazz.rombooservice.custommodal.RoomStatusCustomModal;
 import org.mazz.rombooservice.custommodal.RoomTotalStatusCustomModal;
+import org.mazz.rombooservice.entity.Guesture;
+import org.mazz.rombooservice.repository.GuestureRepository;
 import org.mazz.rombooservice.service.RoomService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -22,6 +24,9 @@ public class WebApiController {
 	@Autowired
 	private RoomService roomService;
 	
+	@Autowired
+	private GuestureRepository guestureRepository;
+	
 	
 	@GetMapping("/connectionCheck")
 	public List<String> getconnection() {
@@ -30,6 +35,12 @@ public class WebApiController {
 		return li;
 	}
 
+	@GetMapping("/guestureList")
+	public List<Guesture> getGuestures() {
+		return guestureRepository.findAll();
+	}
+	
+	
 	@GetMapping("/roomCurrentStatus")
 	public List<RoomStatusCustomModal> getCurrentRoomStatus() {
 		return roomService.getCurrentRoomStatus();
