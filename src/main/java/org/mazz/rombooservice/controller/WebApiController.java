@@ -5,7 +5,9 @@ import java.util.List;
 
 import org.mazz.rombooservice.custommodal.RoomStatusCustomModal;
 import org.mazz.rombooservice.custommodal.RoomTotalStatusCustomModal;
+import org.mazz.rombooservice.entity.DebtorMast;
 import org.mazz.rombooservice.entity.Guesture;
+import org.mazz.rombooservice.repository.DebtorMastRepository;
 import org.mazz.rombooservice.repository.GuestureRepository;
 import org.mazz.rombooservice.service.RoomService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +29,9 @@ public class WebApiController {
 	@Autowired
 	private GuestureRepository guestureRepository;
 	
+	@Autowired
+	private DebtorMastRepository debtorMastRepository;
+	
 	
 	@GetMapping("/connectionCheck")
 	public List<String> getconnection() {
@@ -38,6 +43,11 @@ public class WebApiController {
 	@GetMapping("/guestureList")
 	public List<Guesture> getGuestures() {
 		return guestureRepository.findAll();
+	}
+	
+	@GetMapping("/companyList")
+	public List<DebtorMast> getCompanyList() {
+		return debtorMastRepository.findAll();
 	}
 	
 	
