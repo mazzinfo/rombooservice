@@ -22,7 +22,7 @@ public class RoomType implements Serializable {
 	@Column(name="roomtype")
 	private String roomType;
 
-	@Column(name="TypeName")
+	@Column(name="typename")
 	private String typeName;
 
 	public RoomType() {

@@ -7,6 +7,7 @@ import java.util.List;
 import org.mazz.rombooservice.constant.QueryConstants;
 import org.mazz.rombooservice.custommodal.RoomStatusCustomModal;
 import org.mazz.rombooservice.custommodal.RoomTotalStatusCustomModal;
+import org.mazz.rombooservice.custommodal.TodayBookingCustomModal;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
@@ -33,6 +34,17 @@ public class RoomServiceImpl implements RoomService  {
 
 		
 			searchResults = jdbcTemplate.query(QueryConstants.ROOM_STATUS1, new BeanPropertyRowMapper<>(RoomStatusCustomModal.class));
+		return searchResults;
+	}
+	
+	@Transactional(readOnly = true)
+	@Override
+	public List<TodayBookingCustomModal> getTodayBookingList() {
+		
+		List<TodayBookingCustomModal> searchResults = null;
+
+		
+			searchResults = jdbcTemplate.query(QueryConstants.TODAY_BOOKING_LIST, new BeanPropertyRowMapper<>(TodayBookingCustomModal.class));
 		return searchResults;
 	}
 	

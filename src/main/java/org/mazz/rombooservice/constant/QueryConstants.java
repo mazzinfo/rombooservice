@@ -43,5 +43,16 @@ public class QueryConstants {
 	
 	public static final String TODAY_USE="SELECT  count(*) as dayUse  FROM   RoomCheckin rci  " + 
 			"WHERE rci.ChkInDt =CONVERT(date,GETDATE()) and rci.chkOutDt =CONVERT(date,GETDATE())";
+	
+	
+	
+	public static final String TODAY_BOOKING_LIST="SELECT bh.bookingDate, gm.mrMrs, gm.guestName, gm.address, gm.city, gm.address2,gm.country,gm.phone,gm.mobileNo,gm.otherDetail,gm.idproof, bl.noOfRooms," + 
+			" CONVERT(VARCHAR(20),  bl.fromDate, 100)  as fromDate,   CONVERT(VARCHAR(20),  bl.toDate, 100) as toDate , bl.roomsBooked, bl.pax, bl.roomType,gm.email,dm.contanctPerson, dm.phoneno, dm.debtorName, dm.discountAmount, dm.discountPercentage," + 
+			"adv.dtTime,amount=CONVERT(VARCHAR, adv.amount,1) , adv.receiptNo, bh.bookingPcKey, um.userName, sm.settleName,am.description, bh.guestId, bh.agentCode, bl.billinstr, bl.picKupDetails" + 
+			" FROM ArrivalMast am INNER JOIN BookingHead  bh INNER JOIN GuestMast gm ON bh.GuestId = gm.GuestId INNER JOIN BookingLine bl ON bh.BookingPcKey = bl.BookingPcKey INNER JOIN" + 
+			" DebtorMast dm ON gm.GrpCode = dm.DebtorCode ON am.ArrivalCode = bh.ArrivalMode LEFT OUTER JOIN Advance adv INNER JOIN SettleHead sh ON adv.SettlePcKey = sh.SettlePcKey INNER JOIN" + 
+			" SettleLine sl ON sh.SettlePcKey = sl.SettlePcKey INNER JOIN SettleMast sm ON sl.SettleCode = sm.SettleCode INNER JOIN UserMast um ON sh.UserCode = um.UserCode ON" + 
+			" bh.BookingPcKey = adv.BookingPckey WHERE  bh.CanCelled = 0 and bh.BookingDate=CONVERT(date,GETDATE())";
+	
 
 }
