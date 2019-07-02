@@ -12,11 +12,13 @@ import org.mazz.rombooservice.entity.DebtorMast;
 import org.mazz.rombooservice.entity.GuestMast;
 import org.mazz.rombooservice.entity.Guesture;
 import org.mazz.rombooservice.entity.RoomType;
+import org.mazz.rombooservice.entity.SettleMast;
 import org.mazz.rombooservice.repository.ArrivalMastRepository;
 import org.mazz.rombooservice.repository.DebtorMastRepository;
 import org.mazz.rombooservice.repository.GuestMastRepository;
 import org.mazz.rombooservice.repository.GuestureRepository;
 import org.mazz.rombooservice.repository.RoomTypeRepository;
+import org.mazz.rombooservice.repository.SettleMastRepository;
 import org.mazz.rombooservice.service.RoomService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -50,6 +52,9 @@ public class WebApiController {
 	@Autowired
 	private GuestMastRepository guestMastRepository;
 	
+	@Autowired
+	private SettleMastRepository SettleMastRepository;
+	
 	
 	@GetMapping("/connectionCheck")
 	public List<String> getconnection() {
@@ -68,6 +73,11 @@ public class WebApiController {
 	@GetMapping("/guestureList")
 	public List<Guesture> getGuestures() {
 		return guestureRepository.findAll();
+	}
+	
+	@GetMapping("/settleList")
+	public List<SettleMast> getSettleList() {
+		return SettleMastRepository.findAll();
 	}
 	
 	@GetMapping("/bookingStatusList")
