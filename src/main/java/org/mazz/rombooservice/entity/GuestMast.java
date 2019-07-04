@@ -17,7 +17,7 @@ public class GuestMast implements Serializable {
 
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "guestid")
 	private int guestId;
 
@@ -116,9 +116,10 @@ public class GuestMast implements Serializable {
 
 	@Column(name="state")
 	private String state;
-
+	
+	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name="transactiondate")
-	private Time transactionDate;
+	private java.util.Date transactionDate;
 
 	@Column(name="transactionid")
 	private String transactionId;
@@ -407,11 +408,11 @@ public class GuestMast implements Serializable {
 		this.state = state;
 	}
 
-	public Time getTransactionDate() {
+	public java.util.Date getTransactionDate() {
 		return transactionDate;
 	}
 
-	public void setTransactionDate(Time transactionDate) {
+	public void setTransactionDate(java.util.Date transactionDate) {
 		this.transactionDate = transactionDate;
 	}
 

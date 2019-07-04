@@ -16,7 +16,7 @@ public class SettleMast implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "settlecode")
 	private int settleCode;
 
@@ -73,6 +73,12 @@ public class SettleMast implements Serializable {
 
 	public void setSysGen(String sysGen) {
 		this.sysGen = sysGen;
+	}
+
+	@Override
+	public String toString() {
+		return "SettleMast [settleCode=" + settleCode + ", amount1=" + amount1 + ", faCode=" + faCode + ", settleName="
+				+ settleName + ", sysGen=" + sysGen + "]";
 	}
 
 	

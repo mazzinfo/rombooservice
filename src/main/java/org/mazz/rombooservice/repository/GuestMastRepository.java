@@ -17,6 +17,9 @@ public interface GuestMastRepository extends JpaRepository<GuestMast, Long> {
 	
 	 @Query("FROM GuestMast t where t.guestName = :guestName")     
 		Optional<List<GuestMast>> getGuestList( @Param("guestName") String guestName);
+	 
+	 
+	 
 
 	
 }

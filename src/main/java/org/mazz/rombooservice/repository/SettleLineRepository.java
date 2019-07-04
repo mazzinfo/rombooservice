@@ -1,14 +1,12 @@
 package org.mazz.rombooservice.repository;
 
 
-import org.mazz.rombooservice.entity.Guesture;
+import org.mazz.rombooservice.entity.SettleLine;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface GuestureRepository extends JpaRepository<Guesture, Integer> {
-	
+public interface SettleLineRepository extends JpaRepository<SettleLine, Integer> {
 
-	
 }
