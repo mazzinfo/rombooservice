@@ -70,19 +70,19 @@ public class WebApiController {
 
 	@Autowired
 	private SettleMastRepository settleMastRepository;
-	
+
 	@Autowired
 	private BookingHeadRepository bookingHeadRepository;
-	
+
 	@Autowired
 	private BookingLineRepository bookingLineRepository;
-	
+
 	@Autowired
 	private AdvanceRepository advanceRepository;
-	
+
 	@Autowired
 	private SettleHeadRepository settleHeadRepository;
-	
+
 	@Autowired
 	private SettleLineRepository settleLineRepository;
 
@@ -103,25 +103,25 @@ public class WebApiController {
 
 	@PostMapping("/saveReservation")
 	public void saveReservation(@RequestBody BookingCustomModal bcm) {
-		
-		GuestMast gm=new GuestMast();
-		Optional<Guesture> gs=guestureRepository.findById(Integer.valueOf(bcm.getGuesture()));
-		
-		Optional<RoomType> rt=roomTypeRepository.findById(Integer.valueOf(bcm.getRoomType()));
-		
-		
+
+		GuestMast gm = new GuestMast();
+		Optional<Guesture> gs = guestureRepository.findById(Integer.valueOf(bcm.getGuesture()));
+
+		Optional<RoomType> rt = roomTypeRepository.findById(Integer.valueOf(bcm.getRoomType()));
+
 		gm.setMrMrs(gs.get().getDescription());
 		gm.setGuestName(bcm.getGuestName());
 		gm.setCity(bcm.getCity());
 		gm.setPhone(bcm.getPhoneNo());
+		gm.setGrpCode(Integer.parseInt(bcm.getCompanyName()));
 		gm.setEmail(bcm.getEmailId());
 		gm.setBillInstr(bcm.getInstructionsFor());
 		gm.setBookingID(bcm.getBookingId());
-	 	gm.setTransactionDate(new java.util.Date());
-		GuestMast gms=guestMastRepository.save(gm);
-		
-		BookingHead bh=new BookingHead();
-		
+		gm.setTransactionDate(new java.util.Date());
+		GuestMast gms = guestMastRepository.save(gm);
+
+		BookingHead bh = new BookingHead();
+
 		bh.setGuestId(gm.getGuestId());
 		bh.setAgentCode(0);
 		bh.setArrivalMode(Integer.parseInt(bcm.getBookingStatus()));
@@ -133,9 +133,9 @@ public class WebApiController {
 		bh.setShiftDate(new java.util.Date());
 		bh.setShiftCode(14);
 		bh.setCompGust("Gust");
-		BookingHead bhs=bookingHeadRepository.save(bh);
-		
-		BookingLine bl=new BookingLine();
+		BookingHead bhs = bookingHeadRepository.save(bh);
+
+		BookingLine bl = new BookingLine();
 		bl.setBookingPcKey(bhs.getBookingPcKey());
 		bl.setRoomType(rt.get().getTypeName());
 		bl.setNoOfRooms(Integer.parseInt(bcm.getNoOfRooms()));
@@ -145,55 +145,50 @@ public class WebApiController {
 		bl.setPax(Integer.parseInt(bcm.getPax()));
 		bl.setBillInstr(bcm.getInstructionsFor());
 		bl.setPicKupDetails(bcm.getPickupDetails());
-		BookingLine bls=bookingLineRepository.save(bl);
-		
-		
-		SettleHead sh=new SettleHead();
-		sh.setSettleDate(new java.util.Date());
-		sh.setUserCode(72);
-		sh.setShiftCode(14);
-		sh.setShiftDate(new java.util.Date());
-		sh.setTotalAmount(new BigDecimal(bcm.getAdvance()));
-		
-		SettleHead shs=settleHeadRepository.save(sh);
-		
-		
-		
-		
-		int receiptNo=0;
-		
-		List<Advance> adl=advanceRepository.findAll();
-		System.out.println("adl.."+adl.size());
-		
-		
-	 receiptNo=Integer.parseInt(adl.get(adl.size()-1).getReceiptNo())+1;
-		
-	 
-	 System.out.println("receiptNo.."+receiptNo+"cc"+adl.size());
-		
-		Advance ad=new Advance();
-		
-		ad.setDtTime(new java.util.Date());
-		ad.setAmount(new BigDecimal(bcm.getAdvance()));
-		ad.setReceiptNo(""+receiptNo);
-		ad.setSettlePckey(""+shs.getSettlePcKey());
-		ad.setAdvTransDate(new java.util.Date());
-		advanceRepository.save(ad);
-		
-		for(SettleMast sm:bcm.getSettleList()) {
-			if(sm.getAmount1().compareTo(BigDecimal.ZERO)>0) {
-		SettleLine sl=new SettleLine();
-		sl.setSettlePcKey(shs.getSettlePcKey());
-		sl.setAreaCode(2);
-		sl.setSettleCode(sm.getSettleCode());
-		sl.setAmount(sm.getAmount1());
-		settleLineRepository.save(sl);
+		BookingLine bls = bookingLineRepository.save(bl);
+
+		if (bcm.getAdvance() != null && bcm.getAdvance() != "0") {
+
+			SettleHead sh = new SettleHead();
+			sh.setSettleDate(new java.util.Date());
+			sh.setUserCode(72);
+			sh.setShiftCode(14);
+			sh.setShiftDate(new java.util.Date());
+			sh.setTotalAmount(new BigDecimal(bcm.getAdvance()));
+
+			SettleHead shs = settleHeadRepository.save(sh);
+
+			int receiptNo = 0;
+
+			List<Advance> adl = advanceRepository.findAll();
+			System.out.println("adl.." + adl.size());
+
+			receiptNo = Integer.parseInt(adl.get(adl.size() - 1).getReceiptNo()) + 1;
+
+			System.out.println("receiptNo.." + receiptNo + "cc" + adl.size());
+
+			Advance ad = new Advance();
+			ad.setBookingPcKey("" + bhs.getBookingPcKey());
+			ad.setDtTime(new java.util.Date());
+			ad.setAmount(new BigDecimal(bcm.getAdvance()));
+			ad.setReceiptNo("" + receiptNo);
+			ad.setSettlePckey("" + shs.getSettlePcKey());
+			ad.setAdvTransDate(new java.util.Date());
+			advanceRepository.save(ad);
+
+			for (SettleMast sm : bcm.getSettleList()) {
+				if (sm.getAmount1() != null && sm.getAmount1().compareTo(BigDecimal.ZERO) > 0) {
+					SettleLine sl = new SettleLine();
+					sl.setSettlePcKey(shs.getSettlePcKey());
+					sl.setAreaCode(2);
+					sl.setSettleCode(sm.getSettleCode());
+					sl.setAmount(sm.getAmount1());
+					settleLineRepository.save(sl);
+				}
 			}
 		}
-		
-		
-		System.out.println("bcm.."+bcm.toString());
-		
+
+		System.out.println("bcm.." + bcm.toString());
 
 	}
 

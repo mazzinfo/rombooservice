@@ -135,334 +135,496 @@ public class GuestMast implements Serializable {
 
 	@Column(name="visavaliddate")
 	private String visaValidDate;
+	
+	@Column(name="grpcode")
+	private int grpCode;
 
-	//bi-directional many-to-one association to DebtorMast
-	@ManyToOne
-	@JoinColumn(name="grpcode")
-	private DebtorMast debtorMast;
+	
 
 	public GuestMast() {
 	}
+
+
 
 	public int getGuestId() {
 		return guestId;
 	}
 
+
+
 	public void setGuestId(int guestId) {
 		this.guestId = guestId;
 	}
+
+
 
 	public String getAddress() {
 		return address;
 	}
 
+
+
 	public void setAddress(String address) {
 		this.address = address;
 	}
+
+
 
 	public String getAddress2() {
 		return address2;
 	}
 
+
+
 	public void setAddress2(String address2) {
 		this.address2 = address2;
 	}
+
+
 
 	public String getAge() {
 		return age;
 	}
 
+
+
 	public void setAge(String age) {
 		this.age = age;
 	}
+
+
 
 	public String getArrDateInIndia() {
 		return arrDateInIndia;
 	}
 
+
+
 	public void setArrDateInIndia(String arrDateInIndia) {
 		this.arrDateInIndia = arrDateInIndia;
 	}
+
+
 
 	public String getBillInstr() {
 		return billInstr;
 	}
 
+
+
 	public void setBillInstr(String billInstr) {
 		this.billInstr = billInstr;
 	}
+
+
 
 	public String getBookingID() {
 		return bookingID;
 	}
 
+
+
 	public void setBookingID(String bookingID) {
 		this.bookingID = bookingID;
 	}
+
+
 
 	public String getCity() {
 		return city;
 	}
 
+
+
 	public void setCity(String city) {
 		this.city = city;
 	}
+
+
 
 	public String getContanctPerson() {
 		return contanctPerson;
 	}
 
+
+
 	public void setContanctPerson(String contanctPerson) {
 		this.contanctPerson = contanctPerson;
 	}
+
+
 
 	public String getCountry() {
 		return country;
 	}
 
+
+
 	public void setCountry(String country) {
 		this.country = country;
 	}
+
+
 
 	public String getCountryName() {
 		return countryName;
 	}
 
+
+
 	public void setCountryName(String countryName) {
 		this.countryName = countryName;
 	}
+
+
 
 	public String getDepDateIndia() {
 		return depDateIndia;
 	}
 
+
+
 	public void setDepDateIndia(String depDateIndia) {
 		this.depDateIndia = depDateIndia;
 	}
+
+
 
 	public int getDiscountAmount() {
 		return discountAmount;
 	}
 
+
+
 	public void setDiscountAmount(int discountAmount) {
 		this.discountAmount = discountAmount;
 	}
+
+
 
 	public int getDiscountPercentage() {
 		return discountPercentage;
 	}
 
+
+
 	public void setDiscountPercentage(int discountPercentage) {
 		this.discountPercentage = discountPercentage;
 	}
+
+
 
 	public String getEmail() {
 		return email;
 	}
 
+
+
 	public void setEmail(String email) {
 		this.email = email;
 	}
+
+
 
 	public boolean isForeigner() {
 		return foreigner;
 	}
 
+
+
 	public void setForeigner(boolean foreigner) {
 		this.foreigner = foreigner;
 	}
+
+
 
 	public String getGuestGstNo() {
 		return guestGstNo;
 	}
 
+
+
 	public void setGuestGstNo(String guestGstNo) {
 		this.guestGstNo = guestGstNo;
 	}
+
+
 
 	public String getGuestName() {
 		return guestName;
 	}
 
+
+
 	public void setGuestName(String guestName) {
 		this.guestName = guestName;
 	}
+
+
 
 	public String getIdProof() {
 		return idProof;
 	}
 
+
+
 	public void setIdProof(String idProof) {
 		this.idProof = idProof;
 	}
+
+
 
 	public String getInstrBev() {
 		return instrBev;
 	}
 
+
+
 	public void setInstrBev(String instrBev) {
 		this.instrBev = instrBev;
 	}
+
+
 
 	public String getInstrFO() {
 		return instrFO;
 	}
 
+
+
 	public void setInstrFO(String instrFO) {
 		this.instrFO = instrFO;
 	}
+
+
 
 	public String getInstrHk() {
 		return instrHk;
 	}
 
+
+
 	public void setInstrHk(String instrHk) {
 		this.instrHk = instrHk;
 	}
+
+
 
 	public String getIssueDate() {
 		return issueDate;
 	}
 
+
+
 	public void setIssueDate(String issueDate) {
 		this.issueDate = issueDate;
 	}
+
+
 
 	public String getMobileNo() {
 		return mobileNo;
 	}
 
+
+
 	public void setMobileNo(String mobileNo) {
 		this.mobileNo = mobileNo;
 	}
+
+
 
 	public String getMrMrs() {
 		return mrMrs;
 	}
 
+
+
 	public void setMrMrs(String mrMrs) {
 		this.mrMrs = mrMrs;
 	}
+
+
 
 	public String getOtherDetail() {
 		return otherDetail;
 	}
 
+
+
 	public void setOtherDetail(String otherDetail) {
 		this.otherDetail = otherDetail;
 	}
+
+
 
 	public String getOtherInstr() {
 		return otherInstr;
 	}
 
+
+
 	public void setOtherInstr(String otherInstr) {
 		this.otherInstr = otherInstr;
 	}
+
+
 
 	public String getPassportNo() {
 		return passportNo;
 	}
 
+
+
 	public void setPassportNo(String passportNo) {
 		this.passportNo = passportNo;
 	}
+
+
 
 	public String getPhone() {
 		return phone;
 	}
 
+
+
 	public void setPhone(String phone) {
 		this.phone = phone;
 	}
+
+
 
 	public String getPincode() {
 		return pincode;
 	}
 
+
+
 	public void setPincode(String pincode) {
 		this.pincode = pincode;
 	}
+
+
 
 	public String getPlaceOfIssue() {
 		return placeOfIssue;
 	}
 
+
+
 	public void setPlaceOfIssue(String placeOfIssue) {
 		this.placeOfIssue = placeOfIssue;
 	}
+
+
 
 	public String getPlanName() {
 		return planName;
 	}
 
+
+
 	public void setPlanName(String planName) {
 		this.planName = planName;
 	}
+
+
 
 	public String getState() {
 		return state;
 	}
 
+
+
 	public void setState(String state) {
 		this.state = state;
 	}
+
+
 
 	public java.util.Date getTransactionDate() {
 		return transactionDate;
 	}
 
+
+
 	public void setTransactionDate(java.util.Date transactionDate) {
 		this.transactionDate = transactionDate;
 	}
+
+
 
 	public String getTransactionId() {
 		return transactionId;
 	}
 
+
+
 	public void setTransactionId(String transactionId) {
 		this.transactionId = transactionId;
 	}
+
+
 
 	public String getValidDate() {
 		return validDate;
 	}
 
+
+
 	public void setValidDate(String validDate) {
 		this.validDate = validDate;
 	}
+
+
 
 	public String getVisaIssueDate() {
 		return visaIssueDate;
 	}
 
+
+
 	public void setVisaIssueDate(String visaIssueDate) {
 		this.visaIssueDate = visaIssueDate;
 	}
+
+
 
 	public String getVisaNo() {
 		return visaNo;
 	}
 
+
+
 	public void setVisaNo(String visaNo) {
 		this.visaNo = visaNo;
 	}
+
+
 
 	public String getVisaValidDate() {
 		return visaValidDate;
 	}
 
+
+
 	public void setVisaValidDate(String visaValidDate) {
 		this.visaValidDate = visaValidDate;
 	}
 
-	public DebtorMast getDebtorMast() {
-		return debtorMast;
+
+
+	public int getGrpCode() {
+		return grpCode;
 	}
 
-	public void setDebtorMast(DebtorMast debtorMast) {
-		this.debtorMast = debtorMast;
+
+
+	public void setGrpCode(int grpCode) {
+		this.grpCode = grpCode;
 	}
+
+
 
 	
 }

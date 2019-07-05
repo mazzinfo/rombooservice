@@ -29,20 +29,20 @@ public class QueryConstants {
 	
 	
 	public static final String TODAY_ARR="SELECT  count(*) as totalArr  FROM  RoomMast rm INNER JOIN RoomCheckin rci ON rm.CheckInPcKey = rci.CheckinPcKey " + 
-			"WHERE rci.ChkInDt =CONVERT(date,GETDATE())";
+			"WHERE CONVERT(date,rci.ChkInDt) =CONVERT(date,GETDATE())";
 	
 	
 	public static final String TOTAL_CONTINUE_ROOM="SELECT  count(*) as totalContinueRoom  FROM  RoomMast rm INNER JOIN RoomCheckin rci ON rm.CheckInPcKey = rci.CheckinPcKey " + 
-			"WHERE rci.ChkInDt !=CONVERT(date,GETDATE()) and rci.chkOutDt IS NULL  ";
+			"WHERE CONVERT(date,rci.ChkInDt) !=CONVERT(date,GETDATE()) and rci.chkOutDt IS NULL  ";
 	
 	
 	
 	
 	public static final String TODAY_DEP="SELECT  count(*) as todayDep  FROM   RoomCheckin rci  " + 
-			"WHERE rci.chkOutDt =CONVERT(date,GETDATE())";
+			"WHERE CONVERT(date,rci.chkOutDt) =CONVERT(date,GETDATE())";
 	
 	public static final String TODAY_USE="SELECT  count(*) as dayUse  FROM   RoomCheckin rci  " + 
-			"WHERE rci.ChkInDt =CONVERT(date,GETDATE()) and rci.chkOutDt =CONVERT(date,GETDATE())";
+			"WHERE CONVERT(date,rci.ChkInDt) =CONVERT(date,GETDATE()) and rci.chkOutDt =CONVERT(date,GETDATE())";
 	
 	
 	
@@ -52,7 +52,7 @@ public class QueryConstants {
 			" FROM ArrivalMast am INNER JOIN BookingHead  bh INNER JOIN GuestMast gm ON bh.GuestId = gm.GuestId INNER JOIN BookingLine bl ON bh.BookingPcKey = bl.BookingPcKey INNER JOIN" + 
 			" DebtorMast dm ON gm.GrpCode = dm.DebtorCode ON am.ArrivalCode = bh.ArrivalMode LEFT OUTER JOIN Advance adv INNER JOIN SettleHead sh ON adv.SettlePcKey = sh.SettlePcKey INNER JOIN" + 
 			" SettleLine sl ON sh.SettlePcKey = sl.SettlePcKey INNER JOIN SettleMast sm ON sl.SettleCode = sm.SettleCode INNER JOIN UserMast um ON sh.UserCode = um.UserCode ON" + 
-			" bh.BookingPcKey = adv.BookingPckey WHERE  bh.CanCelled = 0 and bh.BookingDate=CONVERT(date,GETDATE())";
+			" bh.BookingPcKey = adv.BookingPckey WHERE  bh.CanCelled = 0 and CONVERT(date,bh.BookingDate)=CONVERT(date,GETDATE())";
 	
 
 }
