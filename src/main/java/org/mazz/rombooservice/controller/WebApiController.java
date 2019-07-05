@@ -101,6 +101,10 @@ public class WebApiController {
 		return guestList;
 	}
 
+	
+
+	
+	
 	@PostMapping("/saveReservation")
 	public void saveReservation(@RequestBody BookingCustomModal bcm) {
 
@@ -195,6 +199,11 @@ public class WebApiController {
 	@GetMapping("/guestureList")
 	public List<Guesture> getGuestures() {
 		return guestureRepository.findAll();
+	}
+	
+	@GetMapping("/guestList")
+	public List<GuestMast> getGuestList() {
+		return guestMastRepository.findAll();
 	}
 
 	@GetMapping("/settleList")
