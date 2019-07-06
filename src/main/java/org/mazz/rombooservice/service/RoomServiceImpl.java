@@ -37,6 +37,19 @@ public class RoomServiceImpl implements RoomService  {
 		return searchResults;
 	}
 	
+	
+	@Transactional(readOnly = true)
+	@Override
+	public List<TodayBookingCustomModal> getBookingList() {
+		
+		List<TodayBookingCustomModal> searchResults = null;
+
+		
+			searchResults = jdbcTemplate.query(QueryConstants.BOOKING_LIST, new BeanPropertyRowMapper<>(TodayBookingCustomModal.class));
+		return searchResults;
+	}
+	
+	
 	@Transactional(readOnly = true)
 	@Override
 	public List<TodayBookingCustomModal> getTodayBookingList() {

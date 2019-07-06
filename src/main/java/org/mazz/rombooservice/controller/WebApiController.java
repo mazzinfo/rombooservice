@@ -105,14 +105,14 @@ public class WebApiController {
 
 	
 	
+	
+	
 	@PostMapping("/saveReservation")
 	public void saveReservation(@RequestBody BookingCustomModal bcm) {
-
+		int guestId;
+		if(bcm.getGuestId()=="" && bcm.getGuestId()==null) {
 		GuestMast gm = new GuestMast();
 		Optional<Guesture> gs = guestureRepository.findById(Integer.valueOf(bcm.getGuesture()));
-
-		Optional<RoomType> rt = roomTypeRepository.findById(Integer.valueOf(bcm.getRoomType()));
-
 		gm.setMrMrs(gs.get().getDescription());
 		gm.setGuestName(bcm.getGuestName());
 		gm.setCity(bcm.getCity());
@@ -123,10 +123,16 @@ public class WebApiController {
 		gm.setBookingID(bcm.getBookingId());
 		gm.setTransactionDate(new java.util.Date());
 		GuestMast gms = guestMastRepository.save(gm);
+		guestId=gms.getGuestId();
+		
+		}else {
+			guestId=Integer.parseInt(bcm.getGuestId());
+		}
+		
+		Optional<RoomType> rt = roomTypeRepository.findById(Integer.valueOf(bcm.getRoomType()));
 
 		BookingHead bh = new BookingHead();
-
-		bh.setGuestId(gm.getGuestId());
+		bh.setGuestId(guestId);
 		bh.setAgentCode(0);
 		bh.setArrivalMode(Integer.parseInt(bcm.getBookingStatus()));
 		bh.setBookingDate(new java.util.Date());
@@ -151,7 +157,7 @@ public class WebApiController {
 		bl.setPicKupDetails(bcm.getPickupDetails());
 		BookingLine bls = bookingLineRepository.save(bl);
 
-		if (bcm.getAdvance() != null && bcm.getAdvance() != "0") {
+		if (bcm.getAdvance() != "" && !bcm.getAdvance().equals("0")) {
 
 			SettleHead sh = new SettleHead();
 			sh.setSettleDate(new java.util.Date());
@@ -201,6 +207,14 @@ public class WebApiController {
 		return guestureRepository.findAll();
 	}
 	
+	@GetMapping("/checkGuesture/{guestureName}")
+	public Optional<List<Guesture>> getGuester(@PathVariable("guestureName") String guestureName)
+			throws org.mazz.rombooservice.exception.ResourceNotFoundException {
+
+		Optional<List<Guesture>> guestList = guestureRepository.getGuestereByDesc(guestureName);
+		return guestList;
+	}
+	
 	@GetMapping("/guestList")
 	public List<GuestMast> getGuestList() {
 		return guestMastRepository.findAll();
@@ -230,6 +244,12 @@ public class WebApiController {
 	public List<TodayBookingCustomModal> getTodayBookingList() {
 		return roomService.getTodayBookingList();
 	}
+	@GetMapping("/bookingList")
+	public List<TodayBookingCustomModal> getBookingList() {
+		return roomService.getBookingList();
+	}
+	
+	
 
 	@GetMapping("/roomCurrentStatus")
 	public List<RoomStatusCustomModal> getCurrentRoomStatus() {
