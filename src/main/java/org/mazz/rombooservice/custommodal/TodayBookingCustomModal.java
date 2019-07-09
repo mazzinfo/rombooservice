@@ -2,6 +2,8 @@ package org.mazz.rombooservice.custommodal;
 
 
 public class TodayBookingCustomModal {
+	private String  bookingPcKey;
+	private String linePcKey;
 	private String bookingDate;
 	private String mrMrs;
 	private String guestName;
@@ -28,8 +30,26 @@ public class TodayBookingCustomModal {
 	private String dtTime;
 	private String amount;
 	private String receiptNo; 
-	private String bookingPcKey;
 	private String userName;
+	private String settleName;
+	private String description;
+	private String guestId;
+	private String agentCode;
+	private String billinstr; 
+	private String picKupDetails;
+	private String arrivalMode;
+	public String getBookingPcKey() {
+		return bookingPcKey;
+	}
+	public void setBookingPcKey(String bookingPcKey) {
+		this.bookingPcKey = bookingPcKey;
+	}
+	public String getLinePcKey() {
+		return linePcKey;
+	}
+	public void setLinePcKey(String linePcKey) {
+		this.linePcKey = linePcKey;
+	}
 	public String getBookingDate() {
 		return bookingDate;
 	}
@@ -186,12 +206,6 @@ public class TodayBookingCustomModal {
 	public void setReceiptNo(String receiptNo) {
 		this.receiptNo = receiptNo;
 	}
-	public String getBookingPcKey() {
-		return bookingPcKey;
-	}
-	public void setBookingPcKey(String bookingPcKey) {
-		this.bookingPcKey = bookingPcKey;
-	}
 	public String getUserName() {
 		return userName;
 	}
@@ -240,13 +254,6 @@ public class TodayBookingCustomModal {
 	public void setArrivalMode(String arrivalMode) {
 		this.arrivalMode = arrivalMode;
 	}
-	private String settleName;
-	private String description;
-	private String guestId;
-	private String agentCode;
-	private String billinstr; 
-	private String picKupDetails;
-	private String arrivalMode;
 	
 	
 }

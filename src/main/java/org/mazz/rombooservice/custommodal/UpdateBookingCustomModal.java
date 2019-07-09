@@ -6,7 +6,7 @@ import org.mazz.rombooservice.entity.SettleMast;
 
 
 
-public class BookingCustomModal {
+public class UpdateBookingCustomModal {
 	private String  bookingPcKey;
 	private String linePcKey;
 	private String bookingDate;
@@ -31,7 +31,6 @@ public class BookingCustomModal {
 	private String instructionsFor;
 	private String pickupDetails;
 	private String advance;
-	private List<SettleMast> settleList;
 	public String getBookingPcKey() {
 		return bookingPcKey;
 	}
@@ -176,15 +175,9 @@ public class BookingCustomModal {
 	public void setAdvance(String advance) {
 		this.advance = advance;
 	}
-	public List<SettleMast> getSettleList() {
-		return settleList;
-	}
-	public void setSettleList(List<SettleMast> settleList) {
-		this.settleList = settleList;
-	}
 	@Override
 	public String toString() {
-		return "BookingCustomModal [bookingPcKey=" + bookingPcKey + ", linePcKey=" + linePcKey + ", bookingDate="
+		return "UpdateBookingCustomModal [bookingPcKey=" + bookingPcKey + ", linePcKey=" + linePcKey + ", bookingDate="
 				+ bookingDate + ", bookingFromDate=" + bookingFromDate + ", bookingToDate=" + bookingToDate
 				+ ", bookingFromTime=" + bookingFromTime + ", bookingToTime=" + bookingToTime + ", regularGuest="
 				+ regularGuest + ", regularGuestNo=" + regularGuestNo + ", guesture=" + guesture + ", guestId="
@@ -192,9 +185,7 @@ public class BookingCustomModal {
 				+ ", city=" + city + ", emailId=" + emailId + ", bookingStatus=" + bookingStatus + ", roomType="
 				+ roomType + ", noOfRooms=" + noOfRooms + ", pax=" + pax + ", bookingId=" + bookingId
 				+ ", instructionsFor=" + instructionsFor + ", pickupDetails=" + pickupDetails + ", advance=" + advance
-				+ ", settleList=" + settleList + "]";
+				+ "]";
 	}
-	
-	
-	
+
 }

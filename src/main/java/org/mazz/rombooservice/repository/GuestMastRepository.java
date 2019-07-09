@@ -13,7 +13,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface GuestMastRepository extends JpaRepository<GuestMast, Long> {
+public interface GuestMastRepository extends JpaRepository<GuestMast, Integer> {
 	
 	 @Query("FROM GuestMast t where t.guestName = :guestName")     
 		Optional<List<GuestMast>> getGuestList( @Param("guestName") String guestName);

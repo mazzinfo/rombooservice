@@ -11,6 +11,7 @@ import org.mazz.rombooservice.custommodal.BookingCustomModal;
 import org.mazz.rombooservice.custommodal.RoomStatusCustomModal;
 import org.mazz.rombooservice.custommodal.RoomTotalStatusCustomModal;
 import org.mazz.rombooservice.custommodal.TodayBookingCustomModal;
+import org.mazz.rombooservice.custommodal.UpdateBookingCustomModal;
 import org.mazz.rombooservice.entity.Advance;
 import org.mazz.rombooservice.entity.ArrivalMast;
 import org.mazz.rombooservice.entity.BookingHead;
@@ -103,18 +104,66 @@ public class WebApiController {
 
 	
 
+	@PostMapping("/updateReservation")
+	public  List<TodayBookingCustomModal> updateReservation(@RequestBody UpdateBookingCustomModal bcm) {
+		
+		System.out.println("update.."+bcm.toString());
+		
+		GuestMast gm = guestMastRepository.getOne(Integer.valueOf(bcm.getGuestId()));
+		Optional<Guesture> gs = guestureRepository.findById(Integer.valueOf(bcm.getGuesture()));
+		//gm.setGuestId(Integer.parseInt(bcm.getGuestId()));
+		gm.setMrMrs(gs.get().getDescription());
+		gm.setGuestName(bcm.getGuestName());
+		gm.setCity(bcm.getCity());
+		gm.setPhone(bcm.getPhoneNo());
+		gm.setGrpCode(Integer.parseInt(bcm.getCompanyName()));
+		gm.setEmail(bcm.getEmailId());
+		gm.setBillInstr(bcm.getInstructionsFor());
+		gm.setBookingID(bcm.getBookingId());
+		gm.setTransactionDate(new java.util.Date());
+		guestMastRepository.save(gm);
+		
+		
+		BookingHead bh = bookingHeadRepository.getOne(Integer.parseInt(bcm.getBookingPcKey()));
+		//bh.setBookingPcKey(Integer.parseInt(bcm.getBookingPcKey()));
+		bh.setGuestId(Integer.parseInt(bcm.getGuestId()));
+		bh.setAgentCode(0);
+		bh.setArrivalMode(Integer.parseInt(bcm.getBookingStatus()));
+		bh.setBookingDate(new java.util.Date());
+		bh.setBookingShiftCode(14);
+		bh.setBookingMode(Integer.parseInt(bcm.getCompanyName()));
+		bh.setActive("Y");
+		bh.setBlocked("N");
+		bh.setShiftDate(new java.util.Date());
+		bh.setShiftCode(14);
+		bh.setCompGust("Gust");
+		bookingHeadRepository.save(bh);
+		Optional<RoomType> rt = roomTypeRepository.findById(Integer.valueOf(bcm.getRoomType()));
+		
+			
+		BookingLine bl =bookingLineRepository.getOne(Integer.parseInt(bcm.getLinePcKey()));
+		//bl.setLinePcKey(Integer.parseInt(bcm.getLinePcKey()));
+		bl.setBookingPcKey(Integer.parseInt(bcm.getBookingPcKey()));
+		bl.setRoomType(rt.get().getTypeName());
+		bl.setNoOfRooms(Integer.parseInt(bcm.getNoOfRooms()));
+		bl.setFromDate(DateUtill.getDateTime(bcm.getBookingFromDate(), bcm.getBookingFromTime()));
+		bl.setToDate(DateUtill.getDateTime(bcm.getBookingToDate(), bcm.getBookingToTime()));
+		bl.setRoomsBooked(Integer.parseInt(bcm.getNoOfRooms()));
+		bl.setPax(Integer.parseInt(bcm.getPax()));
+		bl.setBillInstr(bcm.getInstructionsFor());
+		bl.setPicKupDetails(bcm.getPickupDetails());
+		 bookingLineRepository.save(bl);
+		 return roomService.getBookingListByGustId(Integer.parseInt(bcm.getGuestId()));
+	}
 	
 	
 	
 	
 	@PostMapping("/saveReservation")
-	public void saveReservation(@RequestBody BookingCustomModal bcm) {
-		
+	public  List<TodayBookingCustomModal> saveReservation(@RequestBody BookingCustomModal bcm) {
 		System.out.println("bcm.." + bcm.toString());
-		
-		
 		int guestId;
-		if(bcm.getGuestId()=="" && bcm.getGuestId()==null) {
+		if(bcm.getGuestId()=="" || bcm.getGuestId()==null || bcm.getGuestId().equals("")) {
 		GuestMast gm = new GuestMast();
 		Optional<Guesture> gs = guestureRepository.findById(Integer.valueOf(bcm.getGuesture()));
 		gm.setMrMrs(gs.get().getDescription());
@@ -202,7 +251,7 @@ public class WebApiController {
 			}
 		}
 
-		
+		return roomService.getTodayBookingList();
 
 	}
 
