@@ -109,6 +109,10 @@ public class WebApiController {
 	
 	@PostMapping("/saveReservation")
 	public void saveReservation(@RequestBody BookingCustomModal bcm) {
+		
+		System.out.println("bcm.." + bcm.toString());
+		
+		
 		int guestId;
 		if(bcm.getGuestId()=="" && bcm.getGuestId()==null) {
 		GuestMast gm = new GuestMast();
@@ -198,7 +202,7 @@ public class WebApiController {
 			}
 		}
 
-		System.out.println("bcm.." + bcm.toString());
+		
 
 	}
 
@@ -213,6 +217,12 @@ public class WebApiController {
 
 		Optional<List<Guesture>> guestList = guestureRepository.getGuestereByDesc(guestureName);
 		return guestList;
+	}
+	
+	
+	@GetMapping("/bookingList/{guestId}")
+	public List<TodayBookingCustomModal> getBookingListByGuestId(@PathVariable("guestId") int guestId) {
+		return roomService.getBookingListByGustId(guestId);
 	}
 	
 	@GetMapping("/guestList")

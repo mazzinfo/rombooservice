@@ -15,6 +15,7 @@ public interface RoomService {
 	List<TodayBookingCustomModal> getTodayBookingList();
 	
 	List<TodayBookingCustomModal> getBookingList();
+	List<TodayBookingCustomModal> getBookingListByGustId(int guestId);
 	
 	RoomTotalStatusCustomModal getTotalRoomStatus();
 	 

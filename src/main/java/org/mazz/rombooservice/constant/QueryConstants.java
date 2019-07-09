@@ -35,7 +35,7 @@ public class QueryConstants {
 	public static final String TOTAL_CONTINUE_ROOM="SELECT  count(*) as totalContinueRoom  FROM  RoomMast rm INNER JOIN RoomCheckin rci ON rm.CheckInPcKey = rci.CheckinPcKey " + 
 			"WHERE CONVERT(date,rci.ChkInDt) !=CONVERT(date,GETDATE()) and rci.chkOutDt IS NULL  ";
 	
-	
+		
 	
 	
 	public static final String TODAY_DEP="SELECT  count(*) as todayDep  FROM   RoomCheckin rci  " + 
@@ -63,4 +63,13 @@ public class QueryConstants {
 		" SettleLine sl ON sh.SettlePcKey = sl.SettlePcKey INNER JOIN SettleMast sm ON sl.SettleCode = sm.SettleCode INNER JOIN UserMast um ON sh.UserCode = um.UserCode ON" + 
 		" bh.BookingPcKey = adv.BookingPckey WHERE  bh.CanCelled = 0 ";
 
+	public static final String BOOKING_LIST_GUEST_ID="SELECT bh.bookingDate, gm.mrMrs, gm.guestName, gm.address, gm.city, gm.address2,gm.country,gm.phone,gm.mobileNo,gm.otherDetail,gm.idproof, bl.noOfRooms,bh.arrivalMode," + 
+			" bl.fromDate,bl.toDate, bl.roomsBooked, bl.pax, bl.roomType,gm.email,dm.contanctPerson, dm.phoneno, dm.debtorName, dm.discountAmount, dm.discountPercentage," + 
+			"adv.dtTime,adv.amount , adv.receiptNo, bh.bookingPcKey, um.userName, sm.settleName,am.description, bh.guestId, bh.agentCode, bl.billinstr, bl.picKupDetails" + 
+			" FROM ArrivalMast am INNER JOIN BookingHead  bh INNER JOIN GuestMast gm ON bh.GuestId = gm.GuestId INNER JOIN BookingLine bl ON bh.BookingPcKey = bl.BookingPcKey INNER JOIN" + 
+			" DebtorMast dm ON gm.GrpCode = dm.DebtorCode ON am.ArrivalCode = bh.ArrivalMode LEFT OUTER JOIN Advance adv INNER JOIN SettleHead sh ON adv.SettlePcKey = sh.SettlePcKey INNER JOIN" + 
+			" SettleLine sl ON sh.SettlePcKey = sl.SettlePcKey INNER JOIN SettleMast sm ON sl.SettleCode = sm.SettleCode INNER JOIN UserMast um ON sh.UserCode = um.UserCode ON" + 
+			" bh.BookingPcKey = adv.BookingPckey WHERE  bh.CanCelled = 0 and  bh.active = 'Y' and  bh.noShow = 0 and bh.GuestId=:guestId ";
+	
+	
 }

@@ -30,12 +30,6 @@ public class TodayBookingCustomModal {
 	private String receiptNo; 
 	private String bookingPcKey;
 	private String userName;
-	private String settleName;
-	private String description;
-	private String guestId;
-	private String agentCode;
-	private String billinstr; 
-	private String picKupDetails;
 	public String getBookingDate() {
 		return bookingDate;
 	}
@@ -240,4 +234,19 @@ public class TodayBookingCustomModal {
 	public void setPicKupDetails(String picKupDetails) {
 		this.picKupDetails = picKupDetails;
 	}
+	public String getArrivalMode() {
+		return arrivalMode;
+	}
+	public void setArrivalMode(String arrivalMode) {
+		this.arrivalMode = arrivalMode;
+	}
+	private String settleName;
+	private String description;
+	private String guestId;
+	private String agentCode;
+	private String billinstr; 
+	private String picKupDetails;
+	private String arrivalMode;
+	
+	
 }
