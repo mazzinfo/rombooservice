@@ -9,6 +9,8 @@ import org.mazz.rombooservice.entity.SettleMast;
 public class BookingCustomModal {
 	private String  bookingPcKey;
 	private String linePcKey;
+	private String  updateFromDate;
+	private String  updateToDate;
 	private String bookingDate;
 	private String bookingFromDate;
 	private String bookingToDate;
@@ -43,6 +45,18 @@ public class BookingCustomModal {
 	}
 	public void setLinePcKey(String linePcKey) {
 		this.linePcKey = linePcKey;
+	}
+	public String getUpdateFromDate() {
+		return updateFromDate;
+	}
+	public void setUpdateFromDate(String updateFromDate) {
+		this.updateFromDate = updateFromDate;
+	}
+	public String getUpdateToDate() {
+		return updateToDate;
+	}
+	public void setUpdateToDate(String updateToDate) {
+		this.updateToDate = updateToDate;
 	}
 	public String getBookingDate() {
 		return bookingDate;
@@ -184,15 +198,16 @@ public class BookingCustomModal {
 	}
 	@Override
 	public String toString() {
-		return "BookingCustomModal [bookingPcKey=" + bookingPcKey + ", linePcKey=" + linePcKey + ", bookingDate="
-				+ bookingDate + ", bookingFromDate=" + bookingFromDate + ", bookingToDate=" + bookingToDate
-				+ ", bookingFromTime=" + bookingFromTime + ", bookingToTime=" + bookingToTime + ", regularGuest="
-				+ regularGuest + ", regularGuestNo=" + regularGuestNo + ", guesture=" + guesture + ", guestId="
-				+ guestId + ", guestName=" + guestName + ", companyName=" + companyName + ", phoneNo=" + phoneNo
-				+ ", city=" + city + ", emailId=" + emailId + ", bookingStatus=" + bookingStatus + ", roomType="
-				+ roomType + ", noOfRooms=" + noOfRooms + ", pax=" + pax + ", bookingId=" + bookingId
-				+ ", instructionsFor=" + instructionsFor + ", pickupDetails=" + pickupDetails + ", advance=" + advance
-				+ ", settleList=" + settleList + "]";
+		return "BookingCustomModal [bookingPcKey=" + bookingPcKey + ", linePcKey=" + linePcKey + ", updateFromDate="
+				+ updateFromDate + ", updateToDate=" + updateToDate + ", bookingDate=" + bookingDate
+				+ ", bookingFromDate=" + bookingFromDate + ", bookingToDate=" + bookingToDate + ", bookingFromTime="
+				+ bookingFromTime + ", bookingToTime=" + bookingToTime + ", regularGuest=" + regularGuest
+				+ ", regularGuestNo=" + regularGuestNo + ", guesture=" + guesture + ", guestId=" + guestId
+				+ ", guestName=" + guestName + ", companyName=" + companyName + ", phoneNo=" + phoneNo + ", city="
+				+ city + ", emailId=" + emailId + ", bookingStatus=" + bookingStatus + ", roomType=" + roomType
+				+ ", noOfRooms=" + noOfRooms + ", pax=" + pax + ", bookingId=" + bookingId + ", instructionsFor="
+				+ instructionsFor + ", pickupDetails=" + pickupDetails + ", advance=" + advance + ", settleList="
+				+ settleList + "]";
 	}
 	
 	

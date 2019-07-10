@@ -14,6 +14,7 @@ import org.mazz.rombooservice.custommodal.TodayBookingCustomModal;
 import org.mazz.rombooservice.custommodal.UpdateBookingCustomModal;
 import org.mazz.rombooservice.entity.Advance;
 import org.mazz.rombooservice.entity.ArrivalMast;
+import org.mazz.rombooservice.entity.BookingCancel;
 import org.mazz.rombooservice.entity.BookingHead;
 import org.mazz.rombooservice.entity.BookingLine;
 import org.mazz.rombooservice.entity.DebtorMast;
@@ -25,6 +26,7 @@ import org.mazz.rombooservice.entity.SettleLine;
 import org.mazz.rombooservice.entity.SettleMast;
 import org.mazz.rombooservice.repository.AdvanceRepository;
 import org.mazz.rombooservice.repository.ArrivalMastRepository;
+import org.mazz.rombooservice.repository.BookingCancelRepository;
 import org.mazz.rombooservice.repository.BookingHeadRepository;
 import org.mazz.rombooservice.repository.BookingLineRepository;
 import org.mazz.rombooservice.repository.DebtorMastRepository;
@@ -86,6 +88,9 @@ public class WebApiController {
 
 	@Autowired
 	private SettleLineRepository settleLineRepository;
+	
+	@Autowired
+	private BookingCancelRepository bookingCancelRepository;
 
 	@GetMapping("/connectionCheck")
 	public List<String> getconnection() {
@@ -101,6 +106,65 @@ public class WebApiController {
 		Optional<List<GuestMast>> guestList = guestMastRepository.getGuestList(guestName);
 		return guestList;
 	}
+
+	@PutMapping("/deleteReservation/{bookingPcKey}")
+	public List<TodayBookingCustomModal> deleteReservation(@PathVariable("bookingPcKey") int bookingPcKey) {
+
+		bookingHeadRepository.updateBookingDelete(bookingPcKey, "N", true);
+		BookingCancel bc = new BookingCancel();
+		bc.setBookingPcKey(bookingPcKey);
+		bc.setCancelDate(new java.util.Date());
+		bc.setReason("Test");
+		bc.setShiftDate(new java.util.Date());
+		bc.setShiftCode(14);
+		bc.setUserCode(72);
+		bookingCancelRepository.save(bc);
+
+		Optional<List<Advance>> ad = advanceRepository.getAdavanceByBookingId("" + bookingPcKey);
+
+		if (ad.isPresent()) {
+
+			for (Advance adm : ad.get()) {
+				Advance admm = new Advance();
+				admm.setBookingPcKey(adm.getBookingPcKey());
+				admm.setDtTime(adm.getDtTime());
+				admm.setAmount(new BigDecimal(0));
+				admm.setReceiptNo(adm.getReceiptNo());
+				admm.setSettlePckey(adm.getSettlePckey());
+				admm.setAdvTransDate(adm.getAdvTransDate());
+
+				advanceRepository.save(admm);
+
+				Optional<List<SettleHead>> sh = settleHeadRepository
+						.getSettleListById(Integer.parseInt(adm.getSettlePckey()));
+				for (SettleHead shm : sh.get()) {
+					SettleHead shmm = new SettleHead();
+					shmm.setSettleDate(shm.getSettleDate());
+					shmm.setUserCode(shm.getUserCode());
+					shmm.setShiftCode(shm.getShiftCode());
+					shmm.setShiftDate(shm.getShiftDate());
+					shmm.setTotalAmount(new BigDecimal(0));
+					settleHeadRepository.save(shmm);
+
+					Optional<List<SettleLine>> sl = settleLineRepository.getSettleListById(shm.getSettlePcKey());
+					for (SettleLine li : sl.get()) {
+						SettleLine slm = new SettleLine();
+						slm.setSettlePcKey(li.getSettlePcKey());
+						slm.setAreaCode(li.getAreaCode());
+						slm.setSettleCode(li.getSettleCode());
+						slm.setAmount(new BigDecimal(0));
+						settleLineRepository.save(slm);
+					}
+
+				}
+
+			}
+
+		}
+
+		return roomService.getTodayBookingList();
+	}
+	
 
 	
 
@@ -146,8 +210,8 @@ public class WebApiController {
 		bl.setBookingPcKey(Integer.parseInt(bcm.getBookingPcKey()));
 		bl.setRoomType(rt.get().getTypeName());
 		bl.setNoOfRooms(Integer.parseInt(bcm.getNoOfRooms()));
-		bl.setFromDate(DateUtill.getDateTime(bcm.getBookingFromDate(), bcm.getBookingFromTime()));
-		bl.setToDate(DateUtill.getDateTime(bcm.getBookingToDate(), bcm.getBookingToTime()));
+		bl.setFromDate(DateUtill.getDateTime(bcm.getUpdateFromDate(), bcm.getBookingFromTime()));
+		bl.setToDate(DateUtill.getDateTime(bcm.getUpdateToDate(), bcm.getBookingToTime()));
 		bl.setRoomsBooked(Integer.parseInt(bcm.getNoOfRooms()));
 		bl.setPax(Integer.parseInt(bcm.getPax()));
 		bl.setBillInstr(bcm.getInstructionsFor());
@@ -202,8 +266,8 @@ public class WebApiController {
 		bl.setBookingPcKey(bhs.getBookingPcKey());
 		bl.setRoomType(rt.get().getTypeName());
 		bl.setNoOfRooms(Integer.parseInt(bcm.getNoOfRooms()));
-		bl.setFromDate(DateUtill.getDateTime(bcm.getBookingFromDate(), bcm.getBookingFromTime()));
-		bl.setToDate(DateUtill.getDateTime(bcm.getBookingToDate(), bcm.getBookingToTime()));
+		bl.setFromDate(DateUtill.getDateTime(bcm.getUpdateFromDate(), bcm.getBookingFromTime()));
+		bl.setToDate(DateUtill.getDateTime(bcm.getUpdateToDate(), bcm.getBookingToTime()));
 		bl.setRoomsBooked(Integer.parseInt(bcm.getNoOfRooms()));
 		bl.setPax(Integer.parseInt(bcm.getPax()));
 		bl.setBillInstr(bcm.getInstructionsFor());
