@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import org.mazz.rombooservice.custommodal.BookingCancelCustomModal;
 import org.mazz.rombooservice.custommodal.BookingCustomModal;
 import org.mazz.rombooservice.custommodal.RoomStatusCustomModal;
 import org.mazz.rombooservice.custommodal.RoomTotalStatusCustomModal;
@@ -107,14 +108,15 @@ public class WebApiController {
 		return guestList;
 	}
 
+	@CrossOrigin
 	@PutMapping("/deleteReservation/{bookingPcKey}")
-	public List<TodayBookingCustomModal> deleteReservation(@PathVariable("bookingPcKey") int bookingPcKey) {
+	public List<TodayBookingCustomModal> deleteReservation(@PathVariable("bookingPcKey") int bookingPcKey,@RequestBody BookingCancelCustomModal bcd) {
 
 		bookingHeadRepository.updateBookingDelete(bookingPcKey, "N", true);
 		BookingCancel bc = new BookingCancel();
 		bc.setBookingPcKey(bookingPcKey);
 		bc.setCancelDate(new java.util.Date());
-		bc.setReason("Test");
+		bc.setReason(bcd.getReason());
 		bc.setShiftDate(new java.util.Date());
 		bc.setShiftCode(14);
 		bc.setUserCode(72);
